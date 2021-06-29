@@ -1,5 +1,6 @@
 package com.promoengine.app.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.promoengine.app.model.ActivePromotion;
@@ -16,6 +17,7 @@ public class OrderValueImpl implements OrderValue {
 		List<PromoCombined> pc = ap.getPc();
 
 		double finalPrice = 0;
+		HashMap<String, CartItemDetails> checkeligibleForCombinedPromoMap = new HashMap<String, CartItemDetails>();
 
 		for (CartItemDetails item : ci) {
 
@@ -28,6 +30,15 @@ public class OrderValueImpl implements OrderValue {
 				finalPrice = finalPrice + ((item.getQuantity() / pfVal.getQuantity()) * pfVal.getDiscountedprice()
 						+ (item.getQuantity() % pfVal.getQuantity()) * item.getPeritemprice());
 				continue;
+			}
+
+			// check for combined promo eligibility
+			boolean checkifEligibleForCombinedPromo = pc.stream().filter(
+					pcval -> pcval.getSkuid1().equals(item.getSkuId()) || pcval.getSkuid2().equals(item.getSkuId()))
+					.findFirst().isPresent();
+
+			if (checkifEligibleForCombinedPromo) {
+				checkeligibleForCombinedPromoMap.put(item.getSkuId(), item);
 			} else {
 				finalPrice = finalPrice + item.getQuantity() * item.getPeritemprice();
 			}
