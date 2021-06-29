@@ -61,5 +61,16 @@ class OrderValueImplTest {
 		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB(), ap);
 		assert (actualprice == 420);
 	}
+	
+	/**
+	 * Scenario F - Test set Up - Check mix of combine and fixed expired promo. - expired case of Sc C
+	 */
+	@Test
+	public void calculatePriceForScenarioF() {
+		ActivePromotion ap = MockData.buildExpiredActivePromotion();
+		OrderValueImpl oi = new OrderValueImpl();
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioC(), ap);
+		assert (actualprice == 335);
+	}
 
 }
