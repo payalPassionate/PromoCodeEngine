@@ -1,5 +1,6 @@
 package com.promoengine.app.service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,8 +20,11 @@ public class OrderValueImpl implements OrderValue {
 
 		for (CartItemDetails item : ci) {
 
-			PromoFixed pfVal = pf.stream().filter(pfval -> pfval.getSkuId().equals(item.getSkuId())).findFirst()
-					.orElse(null);
+			PromoFixed pfVal = pf.stream()
+					.filter(pfval -> pfval.getExpireddate().isEqual(LocalDate.now())
+							|| pfval.getExpireddate().isAfter(LocalDate.now()))
+					.filter(pfval -> pfval != null).filter(pfval -> pfval.getSkuId().equals(item.getSkuId()))
+					.findFirst().orElse(null);
 
 			// Apply fixed promo logic
 			if (pfVal != null) {
@@ -31,42 +35,49 @@ public class OrderValueImpl implements OrderValue {
 			}
 
 			// check for combined promo eligibility
-			boolean checkifEligibleForCombinedPromo = pc.stream().filter(
-					pcval -> pcval.getSkuid1().equals(item.getSkuId()) || pcval.getSkuid2().equals(item.getSkuId()))
-					.findFirst().isPresent();
+			boolean checkifEligibleForCombinedPromo = false;
+			if (pc != null) {
+				checkifEligibleForCombinedPromo = pc.stream().filter(
+						pcval -> pcval.getSkuid1().equals(item.getSkuId()) || pcval.getSkuid2().equals(item.getSkuId()))
+						.findFirst().isPresent();
+			}
 
 			if (checkifEligibleForCombinedPromo) {
 				checkeligibleForCombinedPromoMap.put(item.getSkuId(), item);
+
 			} else {
 				finalPrice = finalPrice + item.getQuantity() * item.getPeritemprice();
 			}
 
 		}
+
 		finalPrice = calculateCombinedPromoPrice(finalPrice, checkeligibleForCombinedPromoMap, pc);
-		
+
 		return finalPrice;
 	}
-	
+
 	private double calculateCombinedPromoPrice(double finalPrice, HashMap<String, CartItemDetails> cartmap,
 			final List<PromoCombined> pc) {
 
 		if (cartmap.size() != 1) {
-			for (PromoCombined pcval : pc) {
-				if (cartmap.containsKey(pcval.getSkuid1()) && cartmap.containsKey(pcval.getSkuid2())) {
-					// apply combined price promo
-					CartItemDetails sku1Details = cartmap.get(pcval.getSkuid1());
-					CartItemDetails sku2Details = cartmap.get(pcval.getSkuid2());
+			if (pc != null) {
+				for (PromoCombined pcval : pc) {
+					if (cartmap.containsKey(pcval.getSkuid1()) && cartmap.containsKey(pcval.getSkuid2())) {
+						// apply combined price promo
+						CartItemDetails sku1Details = cartmap.get(pcval.getSkuid1());
+						CartItemDetails sku2Details = cartmap.get(pcval.getSkuid2());
 
-					finalPrice = finalPrice + (sku1Details.getQuantity() > sku2Details.getQuantity()
-							? (sku2Details.getQuantity() * pcval.getDiscountedprice())
-									+ (sku1Details.getQuantity() - sku2Details.getQuantity())
-											* sku1Details.getPeritemprice()
-							: (sku1Details.getQuantity() * pcval.getDiscountedprice())
-									+ (sku2Details.getQuantity() - sku1Details.getQuantity())
-											* sku2Details.getPeritemprice());
+						finalPrice = finalPrice + (sku1Details.getQuantity() > sku2Details.getQuantity()
+								? (sku2Details.getQuantity() * pcval.getDiscountedprice())
+										+ (sku1Details.getQuantity() - sku2Details.getQuantity())
+												* sku1Details.getPeritemprice()
+								: (sku1Details.getQuantity() * pcval.getDiscountedprice())
+										+ (sku2Details.getQuantity() - sku1Details.getQuantity())
+												* sku2Details.getPeritemprice());
 
-					cartmap.remove(pcval.getSkuid1());
-					cartmap.remove(pcval.getSkuid2());
+						cartmap.remove(pcval.getSkuid1());
+						cartmap.remove(pcval.getSkuid2());
+					}
 				}
 			}
 		} else {
