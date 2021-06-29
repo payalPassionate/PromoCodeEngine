@@ -11,9 +11,15 @@ class OrderValueImplTest {
 		
 		OrderValueImpl oi = new OrderValueImpl();
 		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioA());
-		System.out.println(actualprice);
-		
 		assert (actualprice == 100);
+	}
+	
+	@Test
+	public void calculatePriceForScenarioB() {
+		
+		OrderValueImpl oi = new OrderValueImpl();
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB());
+		assert (actualprice == 370);
 	}
 
 }
