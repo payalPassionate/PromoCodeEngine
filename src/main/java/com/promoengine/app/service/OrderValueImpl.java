@@ -7,12 +7,10 @@ import com.promoengine.app.model.ActivePromotion;
 import com.promoengine.app.model.CartItemDetails;
 import com.promoengine.app.model.PromoCombined;
 import com.promoengine.app.model.PromoFixed;
-import com.promoengine.app.util.MockData;
 
 public class OrderValueImpl implements OrderValue {
 
-	public double calculatePrice(List<CartItemDetails> ci) {
-		ActivePromotion ap = MockData.buildActivePromotion();
+	public double calculatePrice(List<CartItemDetails> ci, ActivePromotion ap) {
 		List<PromoFixed> pf = ap.getPf();
 		List<PromoCombined> pc = ap.getPc();
 

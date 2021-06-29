@@ -2,18 +2,19 @@ package com.promoengine.app.service;
 
 import org.junit.jupiter.api.Test;
 
+import com.promoengine.app.model.ActivePromotion;
 import com.promoengine.app.util.MockData;
 
 class OrderValueImplTest {
-
+	
 	/**
 	 * Scenario A - Test set Up - Check logic when no promo applied.
 	 */
 	@Test
 	public void calculatePriceForScenarioA() {
-		
+		ActivePromotion ap = MockData.buildActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
-		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioA());
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioA(), ap);
 		assert (actualprice == 100);
 	}
 	
@@ -22,9 +23,9 @@ class OrderValueImplTest {
 	 */
 	@Test
 	public void calculatePriceForScenarioB() {
-		
+		ActivePromotion ap = MockData.buildActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
-		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB());
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB(), ap);
 		assert (actualprice == 370);
 	}
 	
@@ -33,9 +34,9 @@ class OrderValueImplTest {
 	 */
 	@Test
 	public void calculatePriceForScenarioC() {
-		
+		ActivePromotion ap = MockData.buildActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
-		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioC());
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioC(), ap);
 		assert (actualprice == 280);
 	}
 	
@@ -44,9 +45,9 @@ class OrderValueImplTest {
 	 */
 	@Test
 	public void calculatePriceForScenarioD() {
-		
+		ActivePromotion ap = MockData.buildActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
-		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioD());
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioD(), ap);
 		assert (actualprice == 330);
 	}
 	
@@ -55,9 +56,9 @@ class OrderValueImplTest {
 	 */
 	@Test
 	public void calculatePriceForScenarioE() {
-		
+		ActivePromotion ap = MockData.buildActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
-		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB());
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB(), ap);
 		assert (actualprice == 420);
 	}
 
