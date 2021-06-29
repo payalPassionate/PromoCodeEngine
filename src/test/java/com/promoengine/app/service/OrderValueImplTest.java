@@ -56,7 +56,7 @@ class OrderValueImplTest {
 	 */
 	@Test
 	public void calculatePriceForScenarioE() {
-		ActivePromotion ap = MockData.buildActivePromotion();
+		ActivePromotion ap = MockData.buildExpiredActivePromotion();
 		OrderValueImpl oi = new OrderValueImpl();
 		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB(), ap);
 		assert (actualprice == 420);
