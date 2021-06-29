@@ -91,7 +91,7 @@ public class MockData {
 	 * The below scenario is enhancement of Scenario C.
 	 * @return
 	 */
-	public static List<CartItemDetails> buildCartItemDetailsForScenarioDtoChcekMultiCombinepromo() {
+	public static List<CartItemDetails> buildCartItemDetailsForScenarioD() {
 		CartItemDetails ci = new CartItemDetails();
 		ci.setSkuId("A");
 		ci.setQuantity(3);

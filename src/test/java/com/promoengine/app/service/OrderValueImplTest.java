@@ -29,5 +29,13 @@ class OrderValueImplTest {
 		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioC());
 		assert (actualprice == 280);
 	}
+	
+	@Test
+	public void calculatePriceForScenarioD() {
+		
+		OrderValueImpl oi = new OrderValueImpl();
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioD());
+		assert (actualprice == 330);
+	}
 
 }
