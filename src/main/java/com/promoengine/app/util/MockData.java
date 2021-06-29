@@ -1,5 +1,7 @@
 package com.promoengine.app.util;
 
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -132,17 +134,42 @@ public class MockData {
 
 		return ap;
 	}
+	
+	public static ActivePromotion buildExpiredActivePromotion() {
+		ActivePromotion ap = new ActivePromotion();
+		ap.setPf(buildPromoFixedExpired());
+
+		return ap;
+	}
+	
+	public static List<PromoFixed> buildPromoFixedExpired() {
+		PromoFixed pf = new PromoFixed();
+		pf.setSkuId("A");
+		pf.setQuantity(3);
+		pf.setDiscountedprice(130);
+		pf.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).minusDays(1));
+
+		PromoFixed pf1 = new PromoFixed();
+		pf1.setSkuId("B");
+		pf1.setQuantity(2);
+		pf1.setDiscountedprice(45);
+		pf1.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).minusDays(1));
+
+		return Arrays.asList(pf, pf1);
+	}
 
 	public static List<PromoFixed> buildPromoFixed() {
 		PromoFixed pf = new PromoFixed();
 		pf.setSkuId("A");
 		pf.setQuantity(3);
 		pf.setDiscountedprice(130);
+		pf.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).plusDays(1));
 
 		PromoFixed pf1 = new PromoFixed();
 		pf1.setSkuId("B");
 		pf1.setQuantity(2);
 		pf1.setDiscountedprice(45);
+		pf1.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).plusDays(1));
 
 		return Arrays.asList(pf, pf1);
 	}
