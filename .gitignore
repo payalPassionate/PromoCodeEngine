@@ -1,0 +1,10 @@
+#### MVN ####
+
+.mvn
+target/
+
+### STS ####
+.classpath
+.project
+.settings
+
