@@ -10,7 +10,7 @@ import com.promoengine.app.model.PromoFixed;
 
 public class MockData {
 
-	public List<CartItemDetails> buildCartItemDetailsForScenarioA() {
+	public static List<CartItemDetails> buildCartItemDetailsForScenarioA() {
 		CartItemDetails ci = new CartItemDetails();
 		ci.setSkuId("A");
 		ci.setQuantity(1);
@@ -29,7 +29,7 @@ public class MockData {
 		return Arrays.asList(ci, ci1, ci2);
 	}
 
-	public ActivePromotion buildActivePromotion() {
+	public static ActivePromotion buildActivePromotion() {
 		ActivePromotion ap = new ActivePromotion();
 		ap.setPc(buildPromoCombined());
 		ap.setPf(buildPromoFixed());
@@ -37,7 +37,7 @@ public class MockData {
 		return ap;
 	}
 
-	public List<PromoFixed> buildPromoFixed() {
+	public static List<PromoFixed> buildPromoFixed() {
 		PromoFixed pf = new PromoFixed();
 		pf.setSkuId("A");
 		pf.setQuantity(3);
@@ -51,7 +51,7 @@ public class MockData {
 		return Arrays.asList(pf, pf1);
 	}
 
-	public List<PromoCombined> buildPromoCombined() {
+	public static List<PromoCombined> buildPromoCombined() {
 		PromoCombined pc = new PromoCombined();
 		pc.setSkuid1("C");
 		pc.setSkuid2("D");
