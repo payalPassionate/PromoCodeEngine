@@ -14,11 +14,24 @@ public class OrderValueImpl implements OrderValue {
 		ActivePromotion ap = MockData.buildActivePromotion();
 		List<PromoFixed> pf = ap.getPf();
 		List<PromoCombined> pc = ap.getPc();
-		
+
 		double finalPrice = 0;
-		
-		for(CartItemDetails item : ci) {
-			finalPrice = finalPrice + item.getQuantity() * item.getPeritemprice();
+
+		for (CartItemDetails item : ci) {
+
+			PromoFixed pfVal = pf.stream().filter(pfval -> pfval.getSkuId().equals(item.getSkuId())).findFirst()
+					.orElse(null);
+
+			// Apply fixed promo logic
+			if (pfVal != null) {
+
+				finalPrice = finalPrice + ((item.getQuantity() / pfVal.getQuantity()) * pfVal.getDiscountedprice()
+						+ (item.getQuantity() % pfVal.getQuantity()) * item.getPeritemprice());
+				continue;
+			} else {
+				finalPrice = finalPrice + item.getQuantity() * item.getPeritemprice();
+			}
+
 		}
 
 		return finalPrice;
