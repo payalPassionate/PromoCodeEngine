@@ -49,5 +49,16 @@ class OrderValueImplTest {
 		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioD());
 		assert (actualprice == 330);
 	}
+	
+	/**
+	 * Scenario E - Test set Up - Check expired fixed promo logic - based on same CartItems details used for sc - B.
+	 */
+	@Test
+	public void calculatePriceForScenarioE() {
+		
+		OrderValueImpl oi = new OrderValueImpl();
+		double actualprice = oi.calculatePrice(MockData.buildCartItemDetailsForScenarioB());
+		assert (actualprice == 420);
+	}
 
 }
