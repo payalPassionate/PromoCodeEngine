@@ -47,6 +47,31 @@ public class MockData {
 
 		return Arrays.asList(ci, ci1, ci2);
 	}
+	
+
+	public static List<CartItemDetails> buildCartItemDetailsForScenarioC() {
+		CartItemDetails ci = new CartItemDetails();
+		ci.setSkuId("A");
+		ci.setQuantity(3);
+		ci.setPeritemprice(50);
+
+		CartItemDetails ci1 = new CartItemDetails();
+		ci1.setSkuId("B");
+		ci1.setQuantity(5);
+		ci1.setPeritemprice(30);
+
+		CartItemDetails ci2 = new CartItemDetails();
+		ci2.setSkuId("C");
+		ci2.setQuantity(1);
+		ci2.setPeritemprice(20);
+		
+		CartItemDetails ci3 = new CartItemDetails();
+		ci2.setSkuId("D");
+		ci2.setQuantity(1);
+		ci2.setPeritemprice(15);
+
+		return Arrays.asList(ci, ci1, ci2, ci3);
+	}
 
 	public static ActivePromotion buildActivePromotion() {
 		ActivePromotion ap = new ActivePromotion();
