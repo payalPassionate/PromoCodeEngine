@@ -66,9 +66,9 @@ public class MockData {
 		ci2.setPeritemprice(20);
 		
 		CartItemDetails ci3 = new CartItemDetails();
-		ci2.setSkuId("D");
-		ci2.setQuantity(1);
-		ci2.setPeritemprice(15);
+		ci3.setSkuId("D");
+		ci3.setQuantity(1);
+		ci3.setPeritemprice(15);
 
 		return Arrays.asList(ci, ci1, ci2, ci3);
 	}

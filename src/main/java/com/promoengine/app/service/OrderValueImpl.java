@@ -44,6 +44,40 @@ public class OrderValueImpl implements OrderValue {
 			}
 
 		}
+		finalPrice = calculateCombinedPromoPrice(finalPrice, checkeligibleForCombinedPromoMap, pc);
+		
+		return finalPrice;
+	}
+	
+	private double calculateCombinedPromoPrice(double finalPrice, HashMap<String, CartItemDetails> cartmap,
+			final List<PromoCombined> pc) {
+
+		if (cartmap.size() != 1) {
+			for (PromoCombined pcval : pc) {
+				if (cartmap.containsKey(pcval.getSkuid1()) && cartmap.containsKey(pcval.getSkuid2())) {
+					// apply combined price promo
+					CartItemDetails sku1Details = cartmap.get(pcval.getSkuid1());
+					CartItemDetails sku2Details = cartmap.get(pcval.getSkuid2());
+
+					finalPrice = finalPrice + (sku1Details.getQuantity() > sku2Details.getQuantity()
+							? (sku2Details.getQuantity() * pcval.getDiscountedprice())
+									+ (sku1Details.getQuantity() - sku2Details.getQuantity())
+											* sku1Details.getPeritemprice()
+							: (sku1Details.getQuantity() * pcval.getDiscountedprice())
+									+ (sku2Details.getQuantity() - sku1Details.getQuantity())
+											* sku2Details.getPeritemprice());
+
+					cartmap.remove(pcval.getSkuid1());
+					cartmap.remove(pcval.getSkuid2());
+				}
+			}
+		} else {
+			if (!cartmap.isEmpty()) {
+				// The map will have only a left over of one item if not empty
+				CartItemDetails itemleft = cartmap.values().stream().findFirst().get();
+				finalPrice = finalPrice + (itemleft.getPeritemprice() * itemleft.getQuantity());
+			}
+		}
 
 		return finalPrice;
 	}
