@@ -3,7 +3,7 @@ package com.promoengine.app.model;
 public class PromoFixed {
 
 	private String skuId;
-	private String quantity;
+	private int quantity;
 	private double discountedprice;
 
 	public String getSkuId() {
@@ -14,11 +14,11 @@ public class PromoFixed {
 		this.skuId = skuId;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
