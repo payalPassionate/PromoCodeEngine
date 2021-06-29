@@ -1,10 +1,21 @@
 package com.promoengine.app.model;
 
+import java.time.LocalDate;
+
 public class PromoCombined {
 
 	private String skuid1;
 	private String skuid2;
 	private double discountedprice;
+	private LocalDate expireddate;
+
+	public LocalDate getExpireddate() {
+		return expireddate;
+	}
+
+	public void setExpireddate(LocalDate expireddate) {
+		this.expireddate = expireddate;
+	}
 
 	public String getSkuid1() {
 		return skuid1;
@@ -32,7 +43,8 @@ public class PromoCombined {
 
 	@Override
 	public String toString() {
-		return "PromoCombined [skuid1=" + skuid1 + ", skuid2=" + skuid2 + ", discountedprice=" + discountedprice + "]";
+		return "PromoCombined [skuid1=" + skuid1 + ", skuid2=" + skuid2 + ", discountedprice=" + discountedprice
+				+ ", expireddate=" + expireddate + "]";
 	}
 
 }

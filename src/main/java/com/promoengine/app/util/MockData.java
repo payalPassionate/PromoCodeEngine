@@ -137,6 +137,7 @@ public class MockData {
 	
 	public static ActivePromotion buildExpiredActivePromotion() {
 		ActivePromotion ap = new ActivePromotion();
+		ap.setPc(buildPromoCombinedExpired());
 		ap.setPf(buildPromoFixedExpired());
 
 		return ap;
@@ -179,11 +180,31 @@ public class MockData {
 		pc.setSkuid1("C");
 		pc.setSkuid2("D");
 		pc.setDiscountedprice(30);
+		pc.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).plusDays(1));
 		
 		PromoCombined pc1 = new PromoCombined();
 		pc1.setSkuid1("E");
 		pc1.setSkuid2("F");
 		pc1.setDiscountedprice(50);
+		pc1.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).plusDays(1));
+
+
+		return Arrays.asList(pc, pc1);
+
+	}
+	
+	public static List<PromoCombined> buildPromoCombinedExpired() {
+		PromoCombined pc = new PromoCombined();
+		pc.setSkuid1("C");
+		pc.setSkuid2("D");
+		pc.setDiscountedprice(30);
+		pc.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).minusDays(1));
+		
+		PromoCombined pc1 = new PromoCombined();
+		pc1.setSkuid1("E");
+		pc1.setSkuid2("F");
+		pc1.setDiscountedprice(50);
+		pc1.setExpireddate(LocalDate.now(Clock.systemDefaultZone()).minusDays(1));
 
 
 		return Arrays.asList(pc, pc1);
