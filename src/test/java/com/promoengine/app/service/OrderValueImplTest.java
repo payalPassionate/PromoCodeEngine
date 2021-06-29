@@ -6,6 +6,9 @@ import com.promoengine.app.util.MockData;
 
 class OrderValueImplTest {
 
+	/**
+	 * Scenario A - Test set Up - Check logic when no promo applied.
+	 */
 	@Test
 	public void calculatePriceForScenarioA() {
 		
@@ -14,6 +17,9 @@ class OrderValueImplTest {
 		assert (actualprice == 100);
 	}
 	
+	/**
+	 * Scenario B - Test set Up - Check fixed promo logic.
+	 */
 	@Test
 	public void calculatePriceForScenarioB() {
 		
@@ -22,6 +28,9 @@ class OrderValueImplTest {
 		assert (actualprice == 370);
 	}
 	
+	/**
+	 * Scenario C - Test set Up - Check mix of combine and fixed promo.
+	 */
 	@Test
 	public void calculatePriceForScenarioC() {
 		
@@ -30,6 +39,9 @@ class OrderValueImplTest {
 		assert (actualprice == 280);
 	}
 	
+	/**
+	 * Scenario D - Test set Up - Check mix of combine and fixed promo - multi Combined promo offers.
+	 */
 	@Test
 	public void calculatePriceForScenarioD() {
 		
