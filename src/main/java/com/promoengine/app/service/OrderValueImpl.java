@@ -34,11 +34,13 @@ public class OrderValueImpl implements OrderValue {
 				continue;
 			}
 
-			// check for combined promo eligibility
+			// check for combined promo eligibility and also check if the promo has not been expired
 			boolean checkifEligibleForCombinedPromo = false;
 			if (pc != null) {
 				checkifEligibleForCombinedPromo = pc.stream().filter(
 						pcval -> pcval.getSkuid1().equals(item.getSkuId()) || pcval.getSkuid2().equals(item.getSkuId()))
+						.filter(pcval -> pcval.getExpireddate().isEqual(LocalDate.now()) || pcval.getExpireddate().isAfter(LocalDate.now())) 
+						.filter(pcval -> pcval != null)
 						.findFirst().isPresent();
 			}
 
