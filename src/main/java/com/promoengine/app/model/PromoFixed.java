@@ -1,10 +1,22 @@
 package com.promoengine.app.model;
 
+import java.time.LocalDate;
+
 public class PromoFixed {
 
 	private String skuId;
 	private int quantity;
 	private double discountedprice;
+	private LocalDate expireddate;
+
+	
+	public LocalDate getExpireddate() {
+		return expireddate;
+	}
+
+	public void setExpireddate(LocalDate expireddate) {
+		this.expireddate = expireddate;
+	}
 
 	public String getSkuId() {
 		return skuId;
@@ -32,7 +44,8 @@ public class PromoFixed {
 
 	@Override
 	public String toString() {
-		return "PromoFixed [skuId=" + skuId + ", quantity=" + quantity + ", discountedprice=" + discountedprice + "]";
+		return "PromoFixed [skuId=" + skuId + ", quantity=" + quantity + ", discountedprice=" + discountedprice
+				+ ", expireddate=" + expireddate + "]";
 	}
 
 }
